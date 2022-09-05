@@ -25,22 +25,22 @@ function Form() {
     const [email, setEmail] = React.useState('');
     const [course, setCourse] = React.useState('');
 
-    const passwordLessSignIn = async (data) => {
-        const signIn = await axios.post("https://cloud-wallet-api.prod.affinity-project.org/api/v1/users/sign-in-passwordless",
-            {"username": data.email}, {
-                headers: {
-                    "Content-Type": "application/json",
-                    "Api-Key": process.env.REACT_APP_API_KEY_HASH || '',
-                }
-            })
-
-        return signIn.data
-    }
+    // const passwordLessSignIn = async (data) => {
+    //     const signIn = await axios.post("https://cloud-wallet-api.prod.affinity-project.org/api/v1/users/sign-in-passwordless",
+    //         {"username": data.email}, {
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //                 "Api-Key": process.env.REACT_APP_API_KEY_HASH || '',
+    //             }
+    //         })
+    //
+    //     return signIn.data
+    // }
 
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const sign = await passwordLessSignIn({email})
+        // const sign = await passwordLessSignIn({email})
         await createCertificate(
             user.id,
             firstName,
@@ -48,7 +48,7 @@ function Form() {
             email,
             course,
         )
-        navigate('/confirmation-code', {state: {data: sign}})
+        navigate("/");
     };
 
     return (
@@ -66,7 +66,6 @@ function Form() {
                 </Stack>
                 <Box
                     rounded={'lg'}
-                    bg={useColorModeValue('white', 'gray.700')}
                     boxShadow={'lg'}
                     p={8}>
                     <form onSubmit={handleSubmit}>
