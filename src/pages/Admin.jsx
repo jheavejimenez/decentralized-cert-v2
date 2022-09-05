@@ -1,44 +1,32 @@
 import {Button, Flex, Table, TableContainer, Tbody, Td, Th, Thead, Tr, useColorModeValue,} from "@chakra-ui/react";
 import React, {useEffect, useState} from "react";
-// import {getSumittedApplications, sendEmailApproved} from "../utils/approver";
 import {DidContext} from "../context/DidContext";
+import {getSumittedApplications, sendEmailApproved} from "../repository/admin";
 
 function Admin() {
     const [certs, setCerts] = useState([]);
     const {did} = React.useContext(DidContext);
 
+    useEffect(() => {
+        async function fetchCerts() {
+            const res = await getSumittedApplications()
+            setCerts(res)
+        }
+
+        fetchCerts()
+        let interval = setInterval(async () => {
+            fetchCerts()
+        }, 10000);
+        return () => {
+            clearInterval(interval); // need to clear the interval when the component unmounts to prevent memory leaks
+        };
+    }, []);
+
     const handleApprove = async (cert) => {
-        // let data = schoolSchema(cert.firstName, cert.lastName, cert.course, did);
-        // console.log(data)
-        // await axios.post("https://affinity-issuer.prod.affinity-project.org/api/v1/vc/build-unsigned", data, {
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //         "Api-Key": `${process.env.REACT_APP_API_KEY_HASH}`
-        //     }
-        //
-        // }).then(res => {
-        //     async function buildUsignVc() {
-        //         const isApprove = true;
-        //         const unsignedVC = res.data.unsignedCredential;
-        //
-        //         await approveApplication(
-        //             cert._id,
-        //             cert.firstName,
-        //             cert.lastName,
-        //             cert.email,
-        //             cert.course,
-        //             isApprove,
-        //             unsignedVC
-        //         )
-        //     }
-        //
-        //     buildUsignVc();
-        // })
-        console.log('click')
-        // await sendEmailApproved(
-        //     cert.email,
-        //     cert.firstName
-        // )
+        await sendEmailApproved(
+            cert.email,
+            cert.firstName
+        )
     }
 
     return (

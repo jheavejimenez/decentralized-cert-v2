@@ -2,27 +2,28 @@ import {Box, Container, Flex, Heading, List, ListItem, Spacer,} from '@chakra-ui
 import CustomButton from "../components/Button";
 import {UserContext} from "../context/UserContext";
 import {useContext, useEffect, useState} from "react";
+import {getApplications} from "../repository/certificate";
 
 function Dashboard() {
     const {user} = useContext(UserContext);
     const [myApplications, setMyApplications] = useState([]);
 
-    // useEffect(() => {
-    //     async function fetchApplications() {
-    //         const res = await getApplications(user.id)
-    //         setMyApplications(res);
-    //     }
-    //
-    //     fetchApplications()
-    //     const interval = setInterval(() => {
-    //         fetchApplications()
-    //     }, 10000)
-    //
-    //     return () => {
-    //         clearInterval(interval); // need to clear the interval when the component unmounts to prevent memory leaks
-    //     };
-    //
-    // }, [])
+    useEffect(() => {
+        async function fetchApplications() {
+            const res = await getApplications(user.id)
+            setMyApplications(res);
+        }
+
+        fetchApplications()
+        const interval = setInterval(() => {
+            fetchApplications()
+        }, 10000)
+
+        return () => {
+            clearInterval(interval); // need to clear the interval when the component unmounts to prevent memory leaks
+        };
+
+    }, [])
 
     return (
         <>

@@ -1,5 +1,5 @@
 import axios from "axios";
-import {server} from "./ApiConfig";
+import {server} from "./apiConfig";
 
 export async function getApplications(id) {
     if (!id) {

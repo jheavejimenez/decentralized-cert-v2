@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import {Container, SimpleGrid} from '@chakra-ui/react';
 import Card from "../components/Card";
 import CertificateCardHolder from "../components/CertificateCardHolder";
-import {getApprovedCertificate} from "../utils/certifcate";
+import {getApprovedCertificate} from "../repository/certificate";
 
 function Certificate() {
     const [certs, setCerts] = useState([]);
