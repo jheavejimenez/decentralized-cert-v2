@@ -13,9 +13,9 @@ import {
 } from '@chakra-ui/react';
 import {useNavigate} from "react-router-dom";
 import React from "react";
-// import {createCertificate} from "../utils/certifcate";
 import axios from "axios";
 import {UserContext} from "../context/UserContext";
+import {createCertificate} from "../repository/certificate";
 
 function Form() {
     const {user} = React.useContext(UserContext);
