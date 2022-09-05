@@ -1,5 +1,6 @@
 import {ChakraProvider} from "@chakra-ui/react";
 import {Route, Routes} from "react-router-dom";
+import NavigationBar from "./components/NavBar";
 
 function App() {
     return (
