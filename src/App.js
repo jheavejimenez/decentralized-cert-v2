@@ -3,6 +3,13 @@ import {Route, Routes} from "react-router-dom";
 import NavigationBar from "./components/NavBar";
 import {UserContext} from "./context/UserContext";
 import {DidContext} from "./context/DidContext";
+import Dashboard from "./pages/Dashboard";
+import Admin from "./pages/Admin";
+import Certificate from "./pages/Certificate";
+import OTP from "./pages/OTP";
+import Form from "./pages/Form";
+import SigninForm from "./pages/SigninForm";
+
 
 function App() {
     const [user, setUser] = useState({
@@ -18,16 +25,17 @@ function App() {
                     <NavigationBar/>
                     <Routes>
                         <Route path="/" element={<Dashboard/>}/>
-                        <Route path={"/sign-in"} element={<SignInForm/>}/>
+                        <Route path={"/sign-in"} element={<SigninForm/>}/>
                         <Route path={"/request-certificate"} element={<Form/>}/>
                         <Route path={"confirmation-code"} element={<OTP/>}/>
                         <Route path={"/certificates"} element={<Certificate/>}/>
-                        <Route path={"/admin"} element={<Approver/>}/>
+                        <Route path={"/admin"} element={<Admin/>}/>
                     </Routes>
                 </div>
             </DidContext.Provider>
         </UserContext.Provider>
     );
 }
+
 
 export default App;
