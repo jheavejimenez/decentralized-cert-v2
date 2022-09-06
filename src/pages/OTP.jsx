@@ -19,13 +19,13 @@ function OTP() {
     const [confirmationCode, setConfirmationCode] = React.useState('');
     const {setDid} = React.useContext(DidContext);
     const navigate = useNavigate();
-    const {state} = useLocation();
-    const {data} = state;
+    // const {state} = useLocation();
+    // const {data} = state;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const did = await patchConfirmationCode(
-            data,
+            // data,
             confirmationCode
         )
         setDid(did);

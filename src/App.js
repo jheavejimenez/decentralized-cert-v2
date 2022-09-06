@@ -27,7 +27,7 @@ function App() {
                         <Route path="/" element={<Dashboard/>}/>
                         <Route path={"/sign-in"} element={<SigninForm/>}/>
                         <Route path={"/request-certificate"} element={<Form/>}/>
-                        <Route path={"confirmation-code"} element={<OTP/>}/>
+                        <Route path={"/confirmation-code"} element={<OTP/>}/>
                         <Route path={"/certificates"} element={<Certificate/>}/>
                         <Route path={"/admin"} element={<Admin/>}/>
                     </Routes>
