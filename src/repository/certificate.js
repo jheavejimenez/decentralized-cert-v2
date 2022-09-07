@@ -21,7 +21,7 @@ export async function patchConfirmationCode(
     token,
     confirmationCode
 ) {
-    const response = await axios.post(`${server.url}/api/certificates/confirm-signup`, {token, confirmationCode});
+    const response = await axios.put(`${server.url}/api/certificates/confirm-signup`, {token, confirmationCode});
     return response.data;
 }
 
