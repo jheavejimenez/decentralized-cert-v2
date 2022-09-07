@@ -30,7 +30,7 @@ function Form() {
             {"username": data.email}, {
                 headers: {
                     "Content-Type": "application/json",
-                    "Api-Key": process.env.REACT_APP_API_KEY_HASH || '',
+                    "Api-Key": process.env.REACT_APP_API_KEY_HASH,
                 }
             })
         return signIn.data
@@ -48,7 +48,7 @@ function Form() {
             course,
         )
         navigate('/confirmation-code', {state: {data: sign}});
-        navigate('/');
+        // navigate('/');
     };
 
     return (

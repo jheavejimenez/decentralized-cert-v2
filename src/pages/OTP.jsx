@@ -10,25 +10,27 @@ import {
     Text,
     useColorModeValue,
 } from '@chakra-ui/react';
-import React from "react";
+import React, {useContext} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
-import {DidContext} from "../context/DidContext";
 import {patchConfirmationCode} from "../repository/certificate";
+import {UserContext} from "../context/UserContext";
 
 function OTP() {
     const [confirmationCode, setConfirmationCode] = React.useState('');
-    const {setDid} = React.useContext(DidContext);
+    // const {setDid} = React.useContext(DidContext);
+    const {user} = useContext(UserContext);
     const navigate = useNavigate();
-    // const {state} = useLocation();
-    // const {data} = state;
+    const {state} = useLocation();
+    const {data} = state;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const did = await patchConfirmationCode(
-            // data,
+        await patchConfirmationCode(
+            user.id,
+            data,
             confirmationCode
         )
-        setDid(did);
+        // setDid(did);
         navigate('/');
     };
 

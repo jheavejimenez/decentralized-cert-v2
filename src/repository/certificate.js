@@ -18,10 +18,11 @@ export async function getApprovedCertificate() {
 }
 
 export async function patchConfirmationCode(
+    id,
     token,
     confirmationCode
 ) {
-    const response = await axios.put(`${server.url}/api/certificates/confirm-signup`, {token, confirmationCode});
+    const response = await axios.put(`${server.url}/api/certificates/confirm-signup/${id}`, {token, confirmationCode});
     return response.data;
 }
 
