@@ -33,14 +33,13 @@ function Form() {
                     "Api-Key": process.env.REACT_APP_API_KEY_HASH || '',
                 }
             })
-
         return signIn.data
     }
 
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        // const sign = await passwordLessSignIn({email})
+        const sign = await passwordLessSignIn({email})
         await createCertificate(
             user.id,
             firstName,
@@ -48,7 +47,7 @@ function Form() {
             email,
             course,
         )
-        // navigate('/confirmation-code', {state: {data: sign}});
+        navigate('/confirmation-code', {state: {data: sign}});
         navigate('/');
     };
 
