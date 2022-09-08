@@ -28,10 +28,11 @@ export async function approveApplication(
 }
 
 export async function buildVC(data) {
-    return await axios.post("https://affinity-issuer.prod.affinity-project.org/api/v1/vc/build-unsigned", data, {
+    const unsignedVC = await axios.post("https://affinity-issuer.prod.affinity-project.org/api/v1/vc/build-unsigned", data, {
         headers: {
             "Content-Type": "application/json",
             "Api-Key": `${process.env.REACT_APP_API_KEY_HASH}`
         }
     });
+    return unsignedVC.data.unsignedCredential;
 }
