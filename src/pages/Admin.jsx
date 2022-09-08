@@ -1,12 +1,12 @@
 import {Button, Flex, Table, TableContainer, Tbody, Td, Th, Thead, Tr, useColorModeValue,} from "@chakra-ui/react";
 import React, {useEffect, useState} from "react";
-import {DidContext} from "../context/DidContext";
+import {UserContext} from "../context/UserContext";
 import {approveApplication, buildVC, getSumittedApplications, sendEmailApproved} from "../repository/admin";
 import {schoolSchema} from "../repository/schemaVC";
+import {getUserDid} from "../repository/user";
 
 function Admin() {
     const [certs, setCerts] = useState([]);
-    const {did} = React.useContext(DidContext);
 
     useEffect(() => {
         async function fetchCerts() {
@@ -24,8 +24,9 @@ function Admin() {
     }, []);
 
     const handleApprove = async (cert) => {
+        const did = await getUserDid(cert.user);
         let data = schoolSchema(cert.firstName, cert.lastName, cert.course, did);
-        const unsignedVC = buildVC(data);
+        const unsignedVC = await buildVC(data);
         const isApprove = true;
 
         await approveApplication(
