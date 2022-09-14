@@ -16,3 +16,13 @@ export async function getUserDid(id) {
     return response.data;
 }
 
+export async function passwordLessLogin(data) {
+    const signIn = await axios.post("https://cloud-wallet-api.prod.affinity-project.org/api/v1/users/sign-in-passwordless",
+        {"username": data.email}, {
+            headers: {
+                "Content-Type": "application/json",
+                "Api-Key": process.env.REACT_APP_API_KEY_HASH,
+            }
+        })
+    return signIn.data
+}
