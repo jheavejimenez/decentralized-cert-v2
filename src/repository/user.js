@@ -15,3 +15,4 @@ export async function getUserDid(id) {
     const response = await axios.get(`${server.url}/api/users/get-user-did/${id}`);
     return response.data;
 }
+

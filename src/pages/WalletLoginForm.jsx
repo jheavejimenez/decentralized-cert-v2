@@ -20,7 +20,7 @@ function WalletLoginForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        navigate('/request-certificate');
+
     };
 
     return (
