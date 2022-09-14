@@ -25,9 +25,6 @@ function Form() {
     const [email, setEmail] = React.useState('');
     const [course, setCourse] = React.useState('');
 
-
-
-
     const handleSubmit = async (e) => {
         e.preventDefault()
         const sign = await passwordLessSignIn({email})
