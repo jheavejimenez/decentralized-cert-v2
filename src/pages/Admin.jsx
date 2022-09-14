@@ -1,7 +1,6 @@
 import {Button, Flex, Table, TableContainer, Tbody, Td, Th, Thead, Tr, useColorModeValue,} from "@chakra-ui/react";
 import React, {useEffect, useState} from "react";
-import {UserContext} from "../context/UserContext";
-import {approveApplication, buildVC, getSumittedApplications, sendEmailApproved} from "../repository/admin";
+import {approveApplication, buildVC, getSumittedApplications} from "../repository/admin";
 import {schoolSchema} from "../repository/schemaVC";
 import {getUserDid} from "../repository/user";
 
@@ -37,10 +36,6 @@ function Admin() {
             cert.course,
             isApprove,
             unsignedVC
-        )
-        await sendEmailApproved(
-            cert.email,
-            cert.firstName
         )
     }
 
