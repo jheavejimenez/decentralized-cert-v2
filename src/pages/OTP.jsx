@@ -14,6 +14,7 @@ import React, {useContext} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import {patchConfirmationCode} from "../repository/certificate";
 import {UserContext} from "../context/UserContext";
+import {loginWithOTP} from "../repository/user";
 
 function OTP() {
     const [confirmationCode, setConfirmationCode] = React.useState('');
@@ -21,17 +22,25 @@ function OTP() {
     const {user} = useContext(UserContext);
     const navigate = useNavigate();
     const {state} = useLocation();
-    const {data} = state;
+    const {data, encodedData} = state;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await patchConfirmationCode(
-            user.id,
-            data,
-            confirmationCode
-        )
-        // setDid(did);
-        navigate('/');
+        if (!user.id) {
+            await loginWithOTP(
+                data,
+                confirmationCode
+            )
+            console.log(encodedData)
+        } else {
+            await patchConfirmationCode(
+                user.id,
+                data,
+                confirmationCode
+            )
+            // setDid(did);
+            navigate('/');
+        }
     };
 
     return (

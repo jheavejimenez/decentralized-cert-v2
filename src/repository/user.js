@@ -26,3 +26,11 @@ export async function passwordLessSignIn(data) {
         })
     return signIn.data
 }
+
+export async function loginWithOTP(
+    token,
+    confirmationCode
+) {
+    const response = await axios.post(`${server.url}/api/certificates//login/otp`, {token, confirmationCode});
+    return response.data;
+}

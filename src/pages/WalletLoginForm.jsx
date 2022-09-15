@@ -26,7 +26,7 @@ function WalletLoginForm() {
         const url = window.location.href;
         const queryString = url.split('?')[1];
 
-        navigate('/confirmation-code', {state: {data: sign}});
+        navigate('/confirmation-code', {state: {data: sign, encodedData: queryString}});
     };
 
 
