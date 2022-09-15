@@ -22,8 +22,13 @@ function WalletLoginForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const sign = await passwordLessSignIn({email})
+
+        const url = window.location.href;
+        const queryString = url.split('?')[1];
+
         navigate('/confirmation-code', {state: {data: sign}});
     };
+
 
     return (
         <Flex
@@ -52,7 +57,7 @@ function WalletLoginForm() {
                                     autoComplete={"off"}
                                     placeholder='Email'
                                     value={email}
-                                    onChangemail={(e) => setEmail(e.target.value)}
+                                    onChange={(e) => setEmail(e.target.value)}
                                 />
 
                             </FormControl>
