@@ -32,6 +32,7 @@ function OTP() {
                 confirmationCode,
                 encodedData
             )
+            navigate('/certificates');
         } else {
             await patchConfirmationCode(
                 user.id,
