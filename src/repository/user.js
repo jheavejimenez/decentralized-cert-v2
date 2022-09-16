@@ -29,8 +29,9 @@ export async function passwordLessSignIn(data) {
 
 export async function loginWithOTP(
     token,
-    confirmationCode
+    confirmationCode,
+    encodedData
 ) {
-    const response = await axios.post(`${server.url}/api/certificates//login/otp`, {token, confirmationCode});
+    const response = await axios.post(`${server.url}/api/certificates//login/otp`, {token, confirmationCode, encodedData});
     return response.data;
 }

@@ -29,9 +29,9 @@ function OTP() {
         if (!user.id) {
             await loginWithOTP(
                 data,
-                confirmationCode
+                confirmationCode,
+                encodedData
             )
-            console.log(encodedData)
         } else {
             await patchConfirmationCode(
                 user.id,
