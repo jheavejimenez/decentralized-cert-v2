@@ -10,28 +10,31 @@ import {
     Text,
     useColorModeValue,
 } from '@chakra-ui/react';
-import React, {useContext} from "react";
-import {useLocation, useNavigate} from "react-router-dom";
-import {patchConfirmationCode} from "../repository/certificate";
-import {UserContext} from "../context/UserContext";
-import {loginWithOTP} from "../repository/user";
+import React, { useContext } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { patchConfirmationCode } from "../repository/certificate";
+import { UserContext } from "../context/UserContext";
+import { AuthProvider } from "../context/AuthProvider";
+import { loginWithOTP } from "../repository/user";
 
 function OTP() {
     const [confirmationCode, setConfirmationCode] = React.useState('');
+    const { setAuth } = useContext(AuthProvider);
     // const {setDid} = React.useContext(DidContext);
-    const {user} = useContext(UserContext);
+    const { user } = useContext(UserContext);
     const navigate = useNavigate();
-    const {state} = useLocation();
-    const {data, encodedData} = state;
+    const { state } = useLocation();
+    const { data, encodedData } = state;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!user.id) {
-            await loginWithOTP(
+            const response = await loginWithOTP(
                 data,
                 confirmationCode,
                 encodedData
             )
+            setAuth(response);
             navigate('/certificates');
         } else {
             await patchConfirmationCode(
