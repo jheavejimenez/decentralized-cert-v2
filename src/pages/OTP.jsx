@@ -14,12 +14,12 @@ import React, { useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { patchConfirmationCode } from "../repository/certificate";
 import { UserContext } from "../context/UserContext";
-import { AuthProvider } from "../context/AuthProvider";
+import AuthContext from "../context/AuthProvider";
 import { loginWithOTP } from "../repository/user";
 
 function OTP() {
     const [confirmationCode, setConfirmationCode] = React.useState('');
-    const { setAuth } = useContext(AuthProvider);
+    const { setAuth } = useContext(AuthContext);
     // const {setDid} = React.useContext(DidContext);
     const { user } = useContext(UserContext);
     const navigate = useNavigate();
