@@ -1,8 +1,22 @@
 import React from "react";
-import {Heading, Stack, Text, useColorModeValue} from "@chakra-ui/react";
-import CustomButton from "./Button";
+import { Button, Heading, Stack, Text, useColorModeValue } from "@chakra-ui/react";
+import axios from "axios";
 
-function CertificateCardHolder({firstName, lastName, course}) {
+function CertificateCardHolder({ firstName, lastName, course, certificateData }) {
+    const verifyCertificate = async (certificateData) => {
+        const response = await axios.post("https://affinity-verifier.prod.affinity-project.org/api/v1/verifier/verify-vcs",
+            { verifiableCredentials: [certificateData] },
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Api-Key": process.env.REACT_APP_API_KEY_HASH,
+                }
+            }
+        );
+
+        alert(response.data.isValid)
+    }
+
     return (
         <Stack
             boxShadow={'2xl'}
@@ -25,7 +39,19 @@ function CertificateCardHolder({firstName, lastName, course}) {
                     {`Course: ${course}`}
                 </Text>
             </Stack>
-            <CustomButton title={'Submit Another Application'} path={'/'} />
+            <Stack spacing={4} direction={{ base: 'column', md: 'row' }} w={'full'}>
+                <Button
+                    bg={'blue.400'}
+                    rounded={'full'}
+                    color={'white'}
+                    flex={'1 0 auto'}
+                    _hover={{ bg: 'blue.500' }}
+                    _focus={{ bg: 'blue.500' }}
+                    onClick={() => verifyCertificate(certificateData)}
+                >
+                    Verify Certificate
+                </Button>
+            </Stack>
         </Stack>
     )
 }

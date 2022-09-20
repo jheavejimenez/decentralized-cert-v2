@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from "react";
-
+import React, { useContext, useEffect, useState } from "react";
+import AuthContext from "../context/AuthProvider";
 import {Container, SimpleGrid} from '@chakra-ui/react';
 import Card from "../components/Card";
 import CertificateCardHolder from "../components/CertificateCardHolder";
@@ -7,16 +7,18 @@ import {getApprovedCertificate} from "../repository/certificate";
 
 function Certificate() {
     const [certs, setCerts] = useState([]);
+    const {auth} = useContext(AuthContext);
+    const accessToken = auth.accessToken;
+
     useEffect(() => {
-        async function fetchApprovedCerts() {
-            const res = await getApprovedCertificate()
+        async function fetchApprovedCerts(accessToken) {
+            const res = await getApprovedCertificate(accessToken)
             setCerts(res);
         }
-
-        fetchApprovedCerts()
+        fetchApprovedCerts(accessToken)
         let interval = setInterval(async () => {
-            fetchApprovedCerts()
-        }, 10000);
+            fetchApprovedCerts(accessToken)
+        }, 60000);
 
         return () => {
             clearInterval(interval); // need to clear the interval when the component unmounts to prevent memory leaks
@@ -28,12 +30,13 @@ function Certificate() {
             {
                 certs.length === 0 ? (<Card/>) : (
                     <SimpleGrid columns={3} spacing={5}>
-                        {certs.map((cert) => (
+                        {certs.map((cert, index) => (
                             <CertificateCardHolder
-                                key={cert._id}
-                                firstName={cert.firstName}
-                                lastName={cert.lastName}
-                                course={cert.course}
+                                key={index}
+                                firstName={cert.credentialSubject.data.firstname}
+                                lastName={cert.credentialSubject.data.lastname}
+                                course={cert.credentialSubject.data.course}
+                                certificateData={cert}
                             />
                         ))}
                     </SimpleGrid>

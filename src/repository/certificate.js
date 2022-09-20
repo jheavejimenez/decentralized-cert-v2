@@ -1,6 +1,6 @@
 import axios from "axios";
 import {server} from "./apiConfig";
-
+import AuthContext from "../context/AuthProvider";
 export async function getApplications(id) {
     if (!id) {
         return [{
@@ -12,9 +12,16 @@ export async function getApplications(id) {
     return response.data;
 }
 
-export async function getApprovedCertificate() {
-    const response = await axios.get(`${server.url}/api/certificates`);
+export async function getApprovedCertificate(accessToken) {
+    const response = await axios.get("https://cloud-wallet-api.prod.affinity-project.org/api/v1/wallet/credentials",{
+        headers: {
+            "Content-Type": "application/json",
+            "Api-Key": process.env.REACT_APP_API_KEY_HASH,
+            "Authorization": `Bearer ${accessToken}`
+        }
+    });
     return response.data;
+
 }
 
 export async function patchConfirmationCode(
