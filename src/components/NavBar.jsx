@@ -7,9 +7,6 @@ const Links = {
     Dashboard: {
         href: "/",
     },
-    Certificates: {
-        href: "/certificates",
-    }
 }
 
 function NavigationBar() {
